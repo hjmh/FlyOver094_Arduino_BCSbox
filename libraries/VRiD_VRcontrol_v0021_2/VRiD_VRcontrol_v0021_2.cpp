@@ -197,10 +197,16 @@ void VRiD_VRcontrol::TTLpulseWhile()
 	//Can be depreciated if I can find the other PWM on the board
 
 	long startTimeTTL = millis();
-	float halfPeriod = ((1/_calibrationPeriod_Hz)*500);
+	float halfPeriod = 0.5*(1000.0/_calibrationPeriod_Hz);
 	
 	while(millis()-startTimeTTL < _calibrationPulseTime) { // do this for 10 seconds (10000), or 1 s (1000)
         
+        digitalWrite(_dacBasler, HIGH);
+        delay(halfPeriod);
+        digitalWrite(_dacBasler, LOW);
+        delay(halfPeriod)
+        
+        /*
 		dac2Write(2, 32767);// set the DAC output to high (TTL_PULSE_HIGH = 32767 --> about 5V)
         long startPeriod1=millis();
         
@@ -214,6 +220,7 @@ void VRiD_VRcontrol::TTLpulseWhile()
         while(millis()-startPeriod2 < halfPeriod){
 			//wait for 1/2 calibrationPeriod
 		};
+         */
 	};
 }
 
